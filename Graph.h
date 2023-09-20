@@ -43,7 +43,8 @@ public:
     bool operator!=(const Graph &x);
 
     void clear();
-
+    void resize(int _n = 0);
+    int get_count_vertex();
     void add_edge(int x, int y);
 
     vector<int> Native_Algorithm_connectivity_component();
@@ -59,6 +60,6 @@ public:
 
 void generate_graph(int n, int m, const string &namefile);
 
-void time_recording_for_Native(int n, const string &input, const string &output);
+void time_recording_for_Native(const string &input, const string &output);
 
-void time_recording_for_Ram(int n, const string &input, const string &output);
+void time_recording_for_Ram(const string &input, const string &output);

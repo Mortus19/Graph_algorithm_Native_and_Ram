@@ -3,15 +3,9 @@
 
 int main() {
 
-    int n = 6;
-    Graph g(n);
-    g.add_edge(0, 1);
-    g.add_edge(1, 2);
-    g.add_edge(2, 1);
-    g.add_edge(3, 4);
-    g.add_edge(4, 5);
-    g.add_edge(5, 3);
-
+    Graph g;
+    cin >> g;
+    int n = g.get_count_vertex();
     vector<int> comp_native = g.Native_Algorithm_connectivity_component();
 
     for (int i = 0; i < n; i++) {

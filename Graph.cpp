@@ -45,6 +45,20 @@ void Graph::clear() {
     edges.clear();
 }
 
+void Graph::resize(int _n) {
+    if (n >= _n) return;
+    vector<Edge> t;
+    for (int i = 0; i < edges.size(); i++) {
+        if (edges[i].u > _n || edges[i].v > _n) continue;
+        t.push_back(edges[i]);
+    }
+    swap(t, edges);
+}
+
+int Graph::get_count_vertex() {
+    return n;
+}
+
 void Graph::add_edge(int x, int y) {
     edges.push_back(Edge(x, y));
 }
@@ -137,7 +151,7 @@ void generate_graph(int n, int m, const string &namefile) {
     out.close();
 }
 
-void time_recording_for_Ram(int n, const string &input, const string &output) {
+void time_recording_for_Ram(const string &input, const string &output) {
     Graph g;
     ifstream in;
     ofstream out;
@@ -149,14 +163,16 @@ void time_recording_for_Ram(int n, const string &input, const string &output) {
     vector<int> t = g.Ram_Algorithm_connectivity_component();
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = (end - start);
-    duration *= 1000.0 * 1000.0;// in mks
+    // in sec
     out.precision(10);
-    out << fixed << n << " " << duration.count() << '\n';
+    out << duration.count() << '\n';
+    if (g.get_count_vertex() <= 10) {
+        out << g << '\n';
+    }
     out.close();
-
 }
 
-void time_recording_for_Native(int n, const string &input, const string &output) {
+void time_recording_for_Native(const string &input, const string &output) {
     Graph g;
     ifstream in;
     ofstream out;
@@ -168,8 +184,11 @@ void time_recording_for_Native(int n, const string &input, const string &output)
     vector<int> t = g.Native_Algorithm_connectivity_component();
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = (end - start);
-    duration *= 1000.0 * 1000.0;// in mks
+    // in sec
     out.precision(10);
-    out << fixed << n << " " << duration.count() << '\n';
+    out << duration.count() << '\n';
+    if (g.get_count_vertex() <= 10) {
+        out << g << '\n';
+    }
     out.close();
 }
