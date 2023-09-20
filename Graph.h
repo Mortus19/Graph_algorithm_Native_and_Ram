@@ -1,5 +1,8 @@
-#include <set>
 #include "DSU.h"
+#include <set>
+#include <fstream>
+#include <chrono>
+#include <random>
 
 
 struct Edge {
@@ -18,6 +21,8 @@ struct Edge {
 
     friend istream &operator>>(istream &in, Edge &cur) {
         in >> cur.u >> cur.v;
+        cur.u--;
+        cur.v--;
         if (cur.u > cur.v) swap(cur.u, cur.v);
         return in;
     }
@@ -39,12 +44,21 @@ public:
 
     void clear();
 
+    void add_edge(int x, int y);
+
     vector<int> Native_Algorithm_connectivity_component();
 
     vector<int> Ram_Algorithm_connectivity_component();
+
+    bool is_connectivy();
 
     friend ostream &operator<<(ostream &out, const Graph &x);
 
     friend istream &operator>>(istream &in, Graph &x);
 };
 
+void generate_graph(int n, int m, const string &namefile);
+
+void time_recording_for_Native(int n, const string &input, const string &output);
+
+void time_recording_for_Ram(int n, const string &input, const string &output);
